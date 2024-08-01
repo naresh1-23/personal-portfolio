@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Form Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #inputField, #submitButton {
+            margin: 10px 0;
+            padding: 5px;
+        }
+        ol {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Enter Your Data</h1>
+    <input type="text" id="inputField" placeholder="Enter something...">
+    <button id="submitButton">Submit</button>
+
+    <ol id="dataList"></ol>
+
+    <script>
+        document.getElementById('submitButton').addEventListener('click', function() {
+            var inputValue = document.getElementById('inputField').value;
+            if (inputValue) {
+                var listItem = document.createElement('li');
+                listItem.textContent = inputValue;
+                document.getElementById('dataList').appendChild(listItem);
+                document.getElementById('inputField').value = ''; // Clear the input field
+            }
+        });
+    </script>
+
+</body>
+</html>
