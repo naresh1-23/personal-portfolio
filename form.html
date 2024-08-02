@@ -25,10 +25,12 @@
         }
         .table-container {
             width: 100%;
+            overflow-x: auto; /* Enable horizontal scrolling */
         }
         table {
-            width: 100%;
+            width: 1000px; /* Set a fixed width for the table */
             border-collapse: collapse;
+            min-width: 600px; /* Ensure the table is at least this wide */
         }
         th, td {
             padding: 10px;
@@ -145,7 +147,7 @@
                 rowData.cashDiscountPercent = row.cells[5].querySelector('input').value;
                 rowData.cashDiscount = row.cells[6].querySelector('input').value;
                 rowData.collectionAmount = row.cells[7].querySelector('input').value;
-                rowData.paymentMode = row.cells[8].querySelector('select').value; // Changed to select
+                rowData.paymentMode = row.cells[8].querySelector('select').value; // Correctly retrieves the selected option
                 rowData.chequeStatus = row.cells[9].querySelector('input').value;
                 data.push(rowData);
             }
