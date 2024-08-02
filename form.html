@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Collection</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-container {
+            margin-bottom: 20px;
+        }
+        .form-container label {
+            display: inline-block;
+            width: 150px;
+        }
+        .form-container input {
+            margin: 5px;
+            padding: 5px;
+            width: 200px;
+        }
+        .table-container {
+            width: 100%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        td input {
+            width: 100%;
+            border: none;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .disabled {
+            background-color: #f9f9f9;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <label for="invoice-date">Invoice Date Range:</label>
+    <input type="text" id="invoice-date" placeholder="Select date range">
+
+    <label for="collection-date">Collection Date:</label>
+    <input type="text" id="collection-date" placeholder="Select a date">
+</div>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th>Invoice No</th>
+                <th>CP No</th>
+                <th>Invoice Amount</th>
+                <th>Amount Due</th>
+                <th>Cash Discount (%)</th>
+                <th>Cash Discount</th>
+                <th>Collection Amount</th>
+                <th>Payment Mode</th>
+                <th>Cheque Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="checkbox" class="row-checkbox"></td>
+                <td><input type="text" value="R240010338" disabled class="editable"></td>
+                <td><input type="text" value="BANGLORE TRADER S (KA-0139541)" disabled class="editable"></td>
+                <td><input type="text" value="4197.00" disabled class="editable"></td>
+                <td><input type="text" value="4197.00 INR" disabled class="editable"></td>
+                <td><input type="text" value="0" disabled class="editable"></td>
+                <td><input type="text" value="0" disabled class="editable"></td>
+                <td><input type="text" value="4197.00" disabled class="editable"></td>
+                <td><input type="text" value="None" disabled class="editable"></td>
+                <td><input type="text" value="01 - Received" disabled class="editable"></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class="row-checkbox"></td>
+                <td><input type="text" value="R240010337" disabled class="editable"></td>
+                <td><input type="text" value="RAJEEV BAKERY (KA-0138510)" disabled class="editable"></td>
+                <td><input type="text" value="5585.00" disabled class="editable"></td>
+                <td><input type="text" value="5585.00 INR" disabled class="editable"></td>
+                <td><input type="text" value="0" disabled class="editable"></td>
+                <td><input type="text" value="0" disabled class="editable"></td>
+                <td><input type="text" value="5585.00" disabled class="editable"></td>
+                <td><input type="text" value="None" disabled class="editable"></td>
+                <td><input type="text" value="01 - Received" disabled class="editable"></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class="row-checkbox"></td>
+                <td><input type="text" value="R240010336" disabled class="editable"></td>
+                <td><input type="text" value="Sahara Store (KA-5335824)" disabled class="editable"></td>
+                <td><input type="text" value="883.00" disabled class="editable"></td>
+                <td><input type="text" value="883.00 INR" disabled class="editable"></td>
+                <td><input type="text" value="0" disabled class="editable"></td>
+                <td><input type="text" value="0" disabled class="editable"></td>
+                <td><input type="text" value="883.00" disabled class="editable"></td>
+                <td><input type="text" value="None" disabled class="editable"></td>
+                <td><input type="text" value="01 - Received" disabled class="editable"></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class="row-checkbox"></td>
+                <td><input type="text" value="R240010335" disabled class="editable"></td>
+                <td><input type="text" value="SHOP @ EEZ (KA-5007317)" disabled class="editable"></td>
+                <td><input type="text" value="6898.00" disabled class="editable"></td>
+                <td><input type="text" value="6898.00 INR" disabled class="editable"></td>
+                <td><input type="text" value="0" disabled class="editable"></td>
+                <td><input type="text" value="0" disabled class="editable"></td>
+                <td><input type="text" value="6898.00" disabled class="editable"></td>
+                <td><input type="text" value="None" disabled class="editable"></td>
+                <td><input type="text" value="01 - Received" disabled class="editable"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<button id="submitButton">Submit</button>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    // Initialize Flatpickr for the date range field
+    flatpickr("#invoice-date", {
+        mode: "range",
+        dateFormat: "Y-m-d",
+        onChange: function(selectedDates) {
+            console.log("Date Range Selected:", selectedDates);
+        }
+    });
+
+    // Initialize Flatpickr for the single date field
+    flatpickr("#collection-date", {
+        dateFormat: "Y-m-d",
+        onChange: function(selectedDates) {
+            console.log("Single Date Selected:", selectedDates);
+        }
+    });
+
+    // Enable/disable editing of table rows based on checkbox
+    document.querySelectorAll('.row-checkbox').forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            var row = this.closest('tr');
+            var inputs = row.querySelectorAll('.editable');
+            inputs.forEach(function(input) {
+                input.disabled = !checkbox.checked;
+            });
+        });
+    });
+
+    document.getElementById('submitButton').addEventListener('click', function() {
+        var data = [];
+        document.querySelectorAll('tbody tr').forEach(function(row) {
+            var rowData = {};
+            if (row.querySelector('.row-checkbox').checked) {
+                rowData.invoiceNo = row.cells[1].querySelector('input').value;
+                rowData.cpNo = row.cells[2].querySelector('input').value;
+                rowData.invoiceAmount = row.cells[3].querySelector('input').value;
+                rowData.amountDue = row.cells[4].querySelector('input').value;
+                rowData.cashDiscountPercent = row.cells[5].querySelector('input').value;
+                rowData.cashDiscount = row.cells[6].querySelector('input').value;
+                rowData.collectionAmount = row.cells[7].querySelector('input').value;
+                rowData.paymentMode = row.cells[8].querySelector('input').value;
+                rowData.chequeStatus = row.cells[9].querySelector('input').value;
+                data.push(rowData);
+            }
+        });
+        console.log('Submitted Data:', data);
+
+        // Reload the page
+        location.reload();
+    });
+</script>
+
+</body>
+</html>
