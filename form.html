@@ -17,7 +17,8 @@
             display: inline-block;
             width: 150px;
         }
-        .form-container input {
+        .form-container input,
+        .form-container select {
             margin: 5px;
             padding: 5px;
             width: 200px;
@@ -37,7 +38,8 @@
         th {
             background-color: #f4f4f4;
         }
-        td input {
+        td input,
+        td select {
             width: 100%;
             border: none;
             padding: 10px;
@@ -85,45 +87,16 @@
                 <td><input type="text" value="0" disabled class="editable"></td>
                 <td><input type="text" value="0" disabled class="editable"></td>
                 <td><input type="text" value="4197.00" disabled class="editable"></td>
-                <td><input type="text" value="None" disabled class="editable"></td>
+                <td>
+                    <select disabled class="editable">
+                        <option value="None">None</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Cheque">Cheque</option>
+                    </select>
+                </td>
                 <td><input type="text" value="01 - Received" disabled class="editable"></td>
             </tr>
-            <tr>
-                <td><input type="checkbox" class="row-checkbox"></td>
-                <td><input type="text" value="R240010337" disabled class="editable"></td>
-                <td><input type="text" value="RAJEEV BAKERY (KA-0138510)" disabled class="editable"></td>
-                <td><input type="text" value="5585.00" disabled class="editable"></td>
-                <td><input type="text" value="5585.00 INR" disabled class="editable"></td>
-                <td><input type="text" value="0" disabled class="editable"></td>
-                <td><input type="text" value="0" disabled class="editable"></td>
-                <td><input type="text" value="5585.00" disabled class="editable"></td>
-                <td><input type="text" value="None" disabled class="editable"></td>
-                <td><input type="text" value="01 - Received" disabled class="editable"></td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" class="row-checkbox"></td>
-                <td><input type="text" value="R240010336" disabled class="editable"></td>
-                <td><input type="text" value="Sahara Store (KA-5335824)" disabled class="editable"></td>
-                <td><input type="text" value="883.00" disabled class="editable"></td>
-                <td><input type="text" value="883.00 INR" disabled class="editable"></td>
-                <td><input type="text" value="0" disabled class="editable"></td>
-                <td><input type="text" value="0" disabled class="editable"></td>
-                <td><input type="text" value="883.00" disabled class="editable"></td>
-                <td><input type="text" value="None" disabled class="editable"></td>
-                <td><input type="text" value="01 - Received" disabled class="editable"></td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" class="row-checkbox"></td>
-                <td><input type="text" value="R240010335" disabled class="editable"></td>
-                <td><input type="text" value="SHOP @ EEZ (KA-5007317)" disabled class="editable"></td>
-                <td><input type="text" value="6898.00" disabled class="editable"></td>
-                <td><input type="text" value="6898.00 INR" disabled class="editable"></td>
-                <td><input type="text" value="0" disabled class="editable"></td>
-                <td><input type="text" value="0" disabled class="editable"></td>
-                <td><input type="text" value="6898.00" disabled class="editable"></td>
-                <td><input type="text" value="None" disabled class="editable"></td>
-                <td><input type="text" value="01 - Received" disabled class="editable"></td>
-            </tr>
+            <!-- Repeat rows as needed -->
         </tbody>
     </table>
 </div>
@@ -172,7 +145,7 @@
                 rowData.cashDiscountPercent = row.cells[5].querySelector('input').value;
                 rowData.cashDiscount = row.cells[6].querySelector('input').value;
                 rowData.collectionAmount = row.cells[7].querySelector('input').value;
-                rowData.paymentMode = row.cells[8].querySelector('input').value;
+                rowData.paymentMode = row.cells[8].querySelector('select').value; // Changed to select
                 rowData.chequeStatus = row.cells[9].querySelector('input').value;
                 data.push(rowData);
             }
