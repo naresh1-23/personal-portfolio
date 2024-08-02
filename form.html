@@ -25,12 +25,14 @@
         }
         .table-container {
             width: 100%;
-            overflow-x: auto; /* Enable horizontal scrolling */
+            overflow: hidden; /* Hide overflow to apply scroll to the table */
         }
         table {
-            width: 1000px; /* Set a fixed width for the table */
+            width: 1200px; /* Set a fixed width for the table */
             border-collapse: collapse;
-            min-width: 600px; /* Ensure the table is at least this wide */
+            display: block; /* Allow scrolling */
+            overflow-x: auto; /* Horizontal scroll for table */
+            white-space: nowrap; /* Prevent wrapping */
         }
         th, td {
             padding: 10px;
