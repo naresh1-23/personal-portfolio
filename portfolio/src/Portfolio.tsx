@@ -119,55 +119,50 @@ export default function Portfolio() {
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 60);
-
       const sections = NAV.map(n =>
-        document.getElementById(n.toLowerCase()!)
-      ).filter((el): el is HTMLElement => el !== null);
-
+        document.getElementById(n.toLowerCase())
+      ).filter((el) => el !== null);
       const active = [...sections]
         .reverse()
         .find(s => s.getBoundingClientRect().top < 180);
-
       if (active) {
         const id = active.id;
         setActiveNav(id.charAt(0).toUpperCase() + id.slice(1));
       }
     };
-
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    const move = (e: MouseEvent) => {
-      setCursor({ x: e.clientX, y: e.clientY });
-    };
-
-    const over = (e: MouseEvent) => {
-      const target = e.target as HTMLElement | null;
-      setCursorActive(!!target?.closest("a,button,.hov"));
-    };
-
+    const move = (e) => setCursor({ x: e.clientX, y: e.clientY });
+    const over = (e) => setCursorActive(!!e.target?.closest("a,button,.hov"));
     window.addEventListener("mousemove", move);
     window.addEventListener("mouseover", over);
-
     return () => {
       window.removeEventListener("mousemove", move);
       window.removeEventListener("mouseover", over);
     };
   }, []);
 
-  const scrollTo = (id: string) => {
-    document
-      .getElementById(id.toLowerCase())
-      ?.scrollIntoView({ behavior: "smooth" });
+  const scrollTo = (id) => {
+    document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div style={{ fontFamily: "'DM Sans',sans-serif", background: "#070710", color: "#e2dff5", minHeight: "100vh", overflowX: "hidden" }}>
+    <div style={{
+      fontFamily: "'DM Sans',sans-serif",
+      background: "#070710",
+      color: "#e2dff5",
+      minHeight: "100vh",
+      overflowX: "hidden",
+      width: "100%",
+      boxSizing: "border-box",
+    }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400&display=swap');
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+        html,body{width:100%;overflow-x:hidden;}
         html{scroll-behavior:smooth;}
         ::-webkit-scrollbar{width:3px;}
         ::-webkit-scrollbar-thumb{background:#3a2e6e;}
@@ -239,21 +234,34 @@ export default function Portfolio() {
 
         .orb{position:absolute;border-radius:50%;border:1px solid rgba(124,88,210,.1);animation:float 8s ease-in-out infinite;pointer-events:none;}
 
+        section {
+          width: 100%;
+          padding: 96px 0;
+        }
+
         .cont {
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-  padding: 0 80px;
-}
-        .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(124,88,210,.22),transparent);}
+          width: 100%;
+          max-width: 100%;
+          margin: 0;
+          padding: 0 80px;
+          box-sizing: border-box;
+        }
+
+        .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(124,88,210,.22),transparent);width:100%;}
 
         .g2{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+
+        @media(max-width:1024px){
+          .cont{padding:0 40px;}
+        }
+
         @media(max-width:768px){
           .g2{grid-template-columns:1fr;}
           .elayout{flex-direction:column!important;}
           .dnone{display:none!important;}
           section{padding:72px 0;}
           .htitle{font-size:clamp(2.8rem,10vw,4rem)!important;}
+          .cont{padding:0 24px;}
         }
       `}</style>
 
@@ -269,6 +277,8 @@ export default function Portfolio() {
         backdropFilter: scrolled ? "blur(20px)" : "none",
         borderBottom: scrolled ? "1px solid rgba(255,255,255,.06)" : "none",
         transition: "all .4s",
+        width: "100%",
+        boxSizing: "border-box",
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg,#7c58d2,#4a30a0)", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -285,22 +295,22 @@ export default function Portfolio() {
       </nav>
 
       {/* HERO */}
-      <section id="about" style={{ minHeight: "100vh", display: "flex", alignItems: "center", position: "relative", overflow: "hidden", padding: "80px 0 60px" }}>
+      <section id="about" style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        position: "relative",
+        overflow: "hidden",
+        padding: "80px 0 60px",
+        width: "100%",
+      }}>
         <div className="hbg" />
         <div className="hgrid" />
         <div className="orb" style={{ width: 420, height: 420, right: -90, top: "8%", animationDelay: "0s" }} />
         <div className="orb" style={{ width: 240, height: 240, right: 70, top: "22%", animationDelay: "2s", animationDuration: "6s" }} />
         <div className="orb" style={{ width: 100, height: 100, right: 175, top: "34%", animationDelay: "1s", animationDuration: "11s", background: "rgba(124,88,210,.05)" }} />
 
-        <div className="cont" style={{
-    position: "relative",
-    zIndex: 1,
-    display: "flex",
-    justifyContent: "center",   // horizontal center
-    alignItems: "center",       // vertical center (extra safety)
-    textAlign: "center",        // center text inside
-    width: "100%",
-  }}>
+        <div className="cont" style={{ position: "relative", zIndex: 1, display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center" }}>
           <div style={{ maxWidth: 680 }}>
             <div className="fu d1" style={{ marginBottom: 28 }}>
               <span className="abadge"><span className="adot" />Open to new opportunities</span>
@@ -314,11 +324,11 @@ export default function Portfolio() {
               Python Developer · Backend Engineer
             </p>
 
-            <p className="fu d3" style={{ fontSize: ".98rem", color: "rgba(226,223,245,.5)", lineHeight: 1.9, maxWidth: 510, marginBottom: 40, fontWeight: 300 }}>
+            <p className="fu d3" style={{ fontSize: ".98rem", color: "rgba(226,223,245,.5)", lineHeight: 1.9, maxWidth: 510, margin: "0 auto 40px", fontWeight: 300 }}>
               A results-oriented backend engineer with over a year of professional experience designing and delivering scalable APIs and full-stack web applications. Passionate about clean system architecture, data-driven solutions, and AI integration.
             </p>
 
-            <div className="fu d4" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+            <div className="fu d4" style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
               <button className="btnp hov" onClick={() => scrollTo("Contact")}>Get in touch →</button>
               <a href="https://github.com/naresh1-23" target="_blank" rel="noreferrer" className="btng hov">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
@@ -330,7 +340,7 @@ export default function Portfolio() {
               </a>
             </div>
 
-            <div className="fu d4" style={{ display: "flex", gap: 40, marginTop: 56, paddingTop: 40, borderTop: "1px solid rgba(255,255,255,.07)" }}>
+            <div className="fu d4" style={{ display: "flex", gap: 40, marginTop: 56, paddingTop: 40, borderTop: "1px solid rgba(255,255,255,.07)", justifyContent: "center" }}>
               {[["3+", "Year of experience"], ["3", "Companies"], ["4+", "Production projects"]].map(([n, l], i) => (
                 <div key={i}>
                   <div className="display" style={{ fontSize: "1.9rem", fontWeight: 700, color: "#e2dff5", lineHeight: 1, marginBottom: 4 }}>{n}</div>
@@ -342,16 +352,7 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <div
-  className="divider"
-  style={{
-    height: "1px",
-    width: "100%",
-    background: "rgba(255,255,255,0.08)",
-    marginTop: "20px",
-    marginBottom: "20px"
-  }}
-/>
+      <div className="divider" />
 
       {/* EXPERIENCE */}
       <section id="experience">
@@ -405,46 +406,20 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <div
-  className="divider"
-  style={{
-    height: "1px",
-    width: "100%",
-    background: "rgba(255,255,255,0.08)",
-    marginTop: "20px",
-    marginBottom: "20px"
-  }}
-/>
+      <div className="divider" />
 
       {/* PROJECTS */}
       <section id="projects">
         <div className="cont">
           <div className="eyebrow">Projects</div>
           <h2 className="display" style={{ fontSize: "clamp(2rem,4vw,2.8rem)", fontWeight: 700, letterSpacing: "-.02em", color: "#e2dff5", marginBottom: 14 }}>Selected work</h2>
-          <p style={{
-            fontSize: ".9rem",
-            color: "rgba(226,223,245,.38)",
-            marginBottom: 48,
-            maxWidth: 480,
-            lineHeight: 1.75,
-            fontWeight: 300,
-            textAlign: "center",
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}>
+          <p style={{ fontSize: ".9rem", color: "rgba(226,223,245,.38)", marginBottom: 48, maxWidth: 480, lineHeight: 1.75, fontWeight: 300, textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
             A selection of production systems and projects delivered across professional and academic contexts.
           </p>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(290px,1fr))", gap: 20 }}>
             {PROJECTS.map((p, i) => (
-              <a
-                key={i}
-                href={p.link}
-                target="_blank"
-                rel="noreferrer"
-                className="pcard hov"
-                style={{ "--ac": p.accent } as React.CSSProperties as any}
-              >
+              <a key={i} href={p.link} target="_blank" rel="noreferrer" className="pcard hov" style={{ "--ac": p.accent }}>
                 <div>
                   <div style={{ fontSize: ".7rem", color: "rgba(226,223,245,.3)", letterSpacing: ".1em", textTransform: "uppercase", marginBottom: 10 }}>{p.subtitle}</div>
                   <h3 className="display" style={{ fontSize: "1.12rem", fontWeight: 700, color: "#e2dff5", lineHeight: 1.3, marginBottom: 14 }}>{p.title}</h3>
@@ -460,16 +435,7 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <div
-  className="divider"
-  style={{
-    height: "1px",
-    width: "100%",
-    background: "rgba(255,255,255,0.08)",
-    marginTop: "20px",
-    marginBottom: "20px"
-  }}
-/>
+      <div className="divider" />
 
       {/* SKILLS */}
       <section id="skills">
@@ -505,16 +471,7 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <div
-  className="divider"
-  style={{
-    height: "1px",
-    width: "100%",
-    background: "rgba(255,255,255,0.08)",
-    marginTop: "20px",
-    marginBottom: "20px"
-  }}
-/>
+      <div className="divider" />
 
       {/* CONTACT */}
       <section id="contact">
@@ -556,7 +513,17 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <footer style={{ borderTop: "1px solid rgba(255,255,255,.06)", padding: "26px 28px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+      <footer style={{
+        borderTop: "1px solid rgba(255,255,255,.06)",
+        padding: "26px 80px",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        flexWrap: "wrap",
+        gap: 12,
+        width: "100%",
+        boxSizing: "border-box",
+      }}>
         <span style={{ fontSize: ".72rem", color: "rgba(226,223,245,.2)", letterSpacing: ".04em" }}>© 2025 Naresh Tamang</span>
         <span style={{ fontSize: ".72rem", color: "rgba(226,223,245,.15)", letterSpacing: ".04em" }}>Baniyatar, Kathmandu, Nepal</span>
       </footer>
