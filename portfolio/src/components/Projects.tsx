@@ -7,7 +7,7 @@ const Projects = () => (
       <h2 className="display" style={{ fontSize: "clamp(2rem,4vw,2.8rem)", fontWeight: 700, letterSpacing: "-.02em", color: "#e2dff5", marginBottom: 14 }}>
         Selected work
       </h2>
-      <p style={{ fontSize: ".9rem", color: "rgba(226,223,245,.38)", marginBottom: 48, maxWidth: 480, lineHeight: 1.75, fontWeight: 300, textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
+      <p style={{ fontSize: ".9rem", color: "rgba(226,223,245,.38)", marginBottom: 48,}}>
         A selection of production systems and projects delivered across professional and academic contexts.
       </p>
 
